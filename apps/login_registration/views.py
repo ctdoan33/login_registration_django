@@ -13,7 +13,7 @@ def register(request):
             messages.error(request, error, extra_tags="reg")
         return redirect("/")
     else:
-        user = User.objects.create(first_name=request.POST["first_name"], last_name=request.POST["last_name"], email=request.POST["email"], hash_pw=bcrypt.hashpw(request.POST["password"].encode(), bcrypt.gensalt()))
+        user = User.objects.create(first_name=request.POST["first_name"], last_name=request.POST["last_name"], birthdate=datetime.strptime(request.POST["birthdate"], "%Y-%m-%d"), email=request.POST["email"], hash_pw=bcrypt.hashpw(request.POST["password"].encode(), bcrypt.gensalt()))
         request.session["id"] = user.id
         request.session["status"] = "registered"
         return redirect("/success")
